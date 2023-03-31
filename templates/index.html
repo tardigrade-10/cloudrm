@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Cloud Removal Model</title>
+    <style>
+      #input-image, #output-image {
+        max-width: 600px;
+        margin: 20px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <h1>Cloud Removal Model</h1>
+    <p>Select an image to remove clouds from:</p>
+    <input type="file" id="input-file">
+    <br><br>
+    <img id="input-image">
+    <br><br>
+    <button id="predict-button">Predict</button>
+    <br><br>
+    <img id="output-image">
+    <script>
+      const inputImage = document.getElementById('input-image');
+      const inputFile = document.getElementById('input-file');
+      const predictButton = document.getElementById('predict-button');
+      const outputImage = document.getElementById('output-image');
+
+      inputFile.addEventListener('change', () => {
+        const file = inputFile.files[0];
+        const reader = new FileReader();
+        reader.onload = () => {
+          inputImage.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+      });
+
+      predictButton.addEventListener('click', async () => {
+        const file = inputFile.files[0];
+        const formData = new FormData();
+        formData.append('image', file);
+        const response = await fetch('/predict', {
+          method: 'POST',
+          body: formData
+        });
+        const result = await response.json();
+        outputImage.src = 'data:image/png;base64,' + result.predicted_image;
+      });
+    </script>
+  </body>
+</html>
