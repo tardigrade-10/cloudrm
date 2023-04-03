@@ -9,13 +9,13 @@ import base64
 from data import preprocess_app
 import cv2
 
-global device
-device = torch.device('cuda')
+# global device
+# device = torch.device('cuda')
 
 model = AutoencoderModel()
 weights_path = os.path.join(os.getcwd(), 'weights/model_state_dict_512.pt')
-model.load_state_dict(torch.load(weights_path))
-model.to(device)
+model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
+# model.to(device)
 
 
 app = Flask(__name__)
@@ -32,7 +32,7 @@ def predict():
     
     input_image = preprocess_app(file)
 
-    input_image = input_image.to(device)
+    # input_image = input_image.to(device)
 
     predicted_image = model(input_image)
     predicted_image = predicted_image.detach().cpu().numpy().transpose(1,2,0)
@@ -51,4 +51,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run(debug = True, host="0.0.0.0", port="8080")

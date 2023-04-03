@@ -1,0 +1,13 @@
+version: '1'
+services:
+  app:
+    image: cloudrm_image
+    command: sh -c "pip install -r requirements.txt && python app.py"
+    build: .
+    ports: 
+      - "8888:8080"
+    working_dir: /home
+    volumes: 
+      - cloudrm_data:/etc/cloudrm_data
+volumes:
+  cloudrm_data:
