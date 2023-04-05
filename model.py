@@ -1,5 +1,6 @@
 import torch.nn as nn
 import torch
+import os
 
 
 class AutoencoderModel(nn.Module):
@@ -97,3 +98,10 @@ class AutoencoderModel_BIG(nn.Module):
         out = self.relu(self.conv10(x))
 
         return out
+    
+
+def load_model():
+    model = AutoencoderModel()
+    weights_path = os.path.join(os.getcwd(), 'weights/model_state_dict_512.pt')
+    model.load_state_dict(torch.load(weights_path, map_location=torch.device('cpu')))
+    return model

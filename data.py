@@ -20,11 +20,11 @@ transform_512 = transforms.Compose([
                         ])
 
 def preprocess(image):
-    image = cv2.imread(image, 1).astype(np.float32)/255
+    image = cv2.imread(str(image), 1).astype(np.float32)/255
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
     # if transform:
-    image = transform_128(image)
+    image = transform_512(image)
 
     return image
 

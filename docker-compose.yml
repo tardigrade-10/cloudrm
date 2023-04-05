@@ -2,7 +2,6 @@ version: '1'
 services:
   cloudrm:
     image: cloudrm_image
-    command: sh -c "pip install -r requirements.txt && apt-get update && apt install -y libgl1-mesa-glx && python app.py"
     build: .
     ports: 
       - "8888:8080"
@@ -10,17 +9,17 @@ services:
     volumes: 
       - ./:/home
     environment:
-      MYSQL_HOST: mysql
-      MYSQL_USER: user
+      MYSQL_HOST: localhost
+      MYSQL_USER: root
       MYSQL_PASSWORD: password
-      MYSQL_DB: cloudrm_DB
+      MYSQL_DB: cloudrm_db
   mysql:
     image: mysql:8.0
     volumes: 
       - cloudrm_mysql:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
-      MYSQL_DATABASE: cloudrm_DB
+      MYSQL_DATABASE: cloudrm_db
 
 volumes:
   cloudrm_mysql:
