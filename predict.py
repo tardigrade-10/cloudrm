@@ -1,5 +1,4 @@
 import torch
-import torch.nn as nn
 from model import AutoencoderModel
 import cv2
 from data import preprocess
