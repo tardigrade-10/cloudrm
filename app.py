@@ -53,7 +53,6 @@ def predict():
     predicted_image.save(buffered, format="PNG")
     predicted_image_base64 = base64.b64encode(buffered.getvalue()).decode()
 
-
     return jsonify({'predicted_image': predicted_image_base64})
 
 

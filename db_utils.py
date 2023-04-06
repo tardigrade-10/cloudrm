@@ -1,23 +1,45 @@
 import mysql.connector
+import os
+
+def is_running_in_container():
+    # True = Container, else False
+    return os.environ.get("HOSTNAME") != None
 
 def get_connection():
-    mydb = mysql.connector.connect(
-        host="mysql",
-        user="root",
-        password="password"
-        )
+    if is_running_in_container():
+        mydb = mysql.connector.connect(
+            host="mysql",
+            user="root",
+            password="password"
+            )
+    else:
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="password"
+            )
+
 
     # Create a database
     mycursor = mydb.cursor()
     mycursor.execute("CREATE DATABASE IF NOT EXISTS cloudrm_db")
 
     # Connect to the database
-    mydb = mysql.connector.connect(
-        host="mysql",
-        user="root",
-        password="password",
-        database="cloudrm_db"
-    )
+    if is_running_in_container():
+        mydb = mysql.connector.connect(
+            host="mysql",
+            user="root",
+            password="password",
+            database="cloudrm_db"
+        )
+    else:
+        mydb = mysql.connector.connect(
+            host="localhost",
+            user="root",
+            password="password",
+            database="cloudrm_db"
+        )
+
 
     # Create the images table
     mycursor = mydb.cursor()
