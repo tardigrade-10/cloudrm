@@ -23,7 +23,6 @@ def preprocess(image):
     image = cv2.imread(str(image), 1).astype(np.float32)/255
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
 
-    # if transform:
     image = transform_512(image)
 
     return image
@@ -55,12 +54,10 @@ class TrainDataset(Dataset):
         img_path = os.path.join(self.img_dir, self.imlist[idx])
         image = cv2.imread(img_path, 1).astype(np.float32)/255
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        # image = cv2.resize(image, (128, 128))
 
         label_path = os.path.join(self.lab_dir, self.imlist[idx])
         label = cv2.imread(label_path, 1).astype(np.float32)/255
         image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-        # label = cv2.resize(label, (128, 128))
 
         if self.transform:
             image, label = self.transform(image), self.transform(label)

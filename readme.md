@@ -13,4 +13,10 @@ pip install -r requirements.txt
 python app.py
 ```
 
-
+Run app using docker
+```bash
+1. Install docker
+2. Create cloudrm_image using docker build 
+3. Run -
+docker-compose up 
+```

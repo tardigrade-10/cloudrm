@@ -5,14 +5,10 @@ import numpy as np
 from PIL import Image
 import io
 import base64
-from data import preprocess_app, preprocess
+from data import preprocess
 import uuid
 import os
 from pathlib import Path
-
-# global device
-# device = torch.device('cuda')
-# model.to(device)
 
 UPLOAD_FOLDER = os.path.join(os.getcwd() ,"results/app/input")
 PREDS_FOLDER = os.path.join(os.getcwd() ,"results/app/preds")
@@ -31,13 +27,13 @@ def predict():
     file = request.files['image']
     filename = str(uuid.uuid4()) + '.' + file.filename.split('.')[-1]
     file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+    
+    # save image path to mysql and image to storage
     insert_input(file_path)
-
     file.save(file_path)
     
     input_image = preprocess(Path(file_path))
 
-    # input_image = input_image.to(device)
     model = load_model()
     predicted_image = model(input_image)
     predicted_image = predicted_image.detach().cpu().numpy().transpose(1,2,0)

@@ -2,25 +2,25 @@ version: '1'
 services:
   cloudrm:
     image: cloudrm_image
-    build: .
+    command: sh -c "python app.py"
     ports: 
       - "8888:8080"
     working_dir: /home
     volumes: 
       - ./:/home
     environment:
-      MYSQL_HOST: localhost
+      MYSQL_HOST: mysql
       MYSQL_USER: root
       MYSQL_PASSWORD: password
       MYSQL_DB: cloudrm_db
   mysql:
     image: mysql:8.0
     volumes: 
-      - cloudrm_mysql:/var/lib/mysql
+      - cloudrm_vol:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: cloudrm_db
 
 volumes:
-  cloudrm_mysql:
+  cloudrm_vol:
 
