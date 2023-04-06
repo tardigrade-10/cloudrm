@@ -1,3 +1,6 @@
 /data
 
 projectplan.txt
+/.vscode
+/.pytest_cache
+/__pycache__

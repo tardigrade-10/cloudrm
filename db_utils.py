@@ -3,7 +3,7 @@ import os
 
 def is_running_in_container():
     # True = Container, else False
-    return os.environ.get("HOSTNAME") != None
+    return os.environ.get("HOSTNAME") is not None
 
 def get_connection():
     if is_running_in_container():

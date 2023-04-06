@@ -24,7 +24,9 @@ def test_predict(client):
             f.write(test_image.read())
             f.seek(0)
 
-        response = client.post('/predict', data={'image': (f, test_image_path)}, content_type='multipart/form-data')
+        response = client.post('/predict',
+                               data={'image': (f, test_image_path)},
+                               content_type='multipart/form-data')
         
         assert response.status_code == 200
         assert 'predicted_image' in response.json
