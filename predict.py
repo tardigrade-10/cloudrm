@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-from model import AutoencoderModel, AutoencoderModel_BIG
+from model import AutoencoderModel
 import cv2
 from data import preprocess
 import argparse
@@ -9,7 +9,7 @@ import os
 
 def predict(args):
 
-    model = AutoencoderModel_BIG()
+    model = AutoencoderModel()
 
     input_path = args.image
     weights_path = "weights\model_state_dict_512.pt"
