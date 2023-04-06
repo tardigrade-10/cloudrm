@@ -1,3 +1,6 @@
+import sys, os
+sys.path.append(os.getcwd())
+
 from flask import Flask, request, render_template, jsonify
 from db_utils import insert_input, insert_pred
 from model import load_model
@@ -7,8 +10,8 @@ import io
 import base64
 from data import preprocess
 import uuid
-import os
 from pathlib import Path
+
 
 UPLOAD_FOLDER = os.path.join(os.getcwd() ,"results/app/input")
 PREDS_FOLDER = os.path.join(os.getcwd() ,"results/app/preds")
