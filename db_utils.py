@@ -21,7 +21,14 @@ def get_connection():
 
     # Create the images table
     mycursor = mydb.cursor()
-    mycursor.execute("CREATE TABLE IF NOT EXISTS images (id INT AUTO_INCREMENT PRIMARY KEY, inp_path VARCHAR(255), pred_path VARCHAR(255))")
+    mycursor.execute("""
+                        CREATE TABLE IF NOT EXISTS images (
+                        id INT AUTO_INCREMENT PRIMARY KEY, 
+                        inp_path VARCHAR(255), 
+                        pred_path VARCHAR(255)
+                        )
+                     """
+                     )
     mycursor.close()
 
     return mydb 
