@@ -1,6 +1,12 @@
 ## Cloud Removal App
 #### Using Convolutional Autoencoder
 
+**Quantitative Analysis**
+
+|               |  PSNR(Acc)  | MSE(Loss) |
+| :-----------: | :----: | :---: |
+|   Conv-AEM    | 25.086 |0.0041 |
+
 Run for inference 
 ```bash
 pip install -r requirements.txt
